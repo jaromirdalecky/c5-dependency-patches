@@ -4,18 +4,16 @@ Subject: [PATCH] Decode JSON response from Facebook API
 
 --- a/src/OAuth/OAuth2/Service/Facebook.php
 +++ b/src/OAuth/OAuth2/Service/Facebook.php
-@@ -158,20 +158,26 @@ public function getAccessTokenEndpoint()
+@@ -158,20 +158,25 @@
       */
      protected function parseAccessTokenResponse($responseBody)
      {
 -        // Facebook gives us a query string ... Oh wait. JSON is too simple, understand ?
 -        parse_str($responseBody, $data);
-+        // Facebook gives us a query string on old api versions
-+        if (0 !== strpos($responseBody, '{')) {
++        $data = @json_decode($responseBody, true);
++        // Facebook gives us a query string on old api (v2.0)
++        if (!$data) {
 +            parse_str($responseBody, $data);
-+        } // JSON on new versions
-+        else {
-+            $data = json_decode($responseBody, true);
 +        }
 
          if (null === $data || !is_array($data)) {
@@ -25,7 +23,7 @@ Subject: [PATCH] Decode JSON response from Facebook API
 +        } elseif (empty($data['access_token'])) {
 +            throw new TokenResponseException('Error in retrieving token: Access token is empty!');
          }
--
+
          $token = new StdOAuth2Token();
          $token->setAccessToken($data['access_token']);
 
@@ -36,7 +34,7 @@ Subject: [PATCH] Decode JSON response from Facebook API
          }
 
          if (isset($data['refresh_token'])) {
-@@ -180,7 +186,7 @@ protected function parseAccessTokenResponse($responseBody)
+@@ -180,7 +185,7 @@
          }
 
          unset($data['access_token']);
