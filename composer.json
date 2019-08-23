@@ -1,0 +1,19 @@
+{
+    "type": "library",
+    "license": "MIT",
+    "name": "jaromirdalecky/c5-dependency-patches",
+    "description": "Patches required for concrete5 dependencies",
+    "require": {
+        "mlocati/composer-patcher": "^1.0.0"
+    },
+    "extra": {
+        "patches": {
+            "lusitanian/oauth:v0.8.9": {
+                "Fix Facebook API response decoding in JSON": "lusitanian/oauth/decode-json-response-from-facebook.patch"
+            },
+            "oryzone/oauth-user-data:v1.0.0-alpha": {
+                "Pass request fields to Facebook Graph API": "oryzone/oauth-user-data/request-fields-from-facebook.patch"
+            }
+        }
+    }
+}
