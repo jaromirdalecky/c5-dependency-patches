@@ -13,6 +13,9 @@
             },
             "oryzone/oauth-user-data:v1.0.0-alpha": {
                 "Pass request fields to Facebook Graph API": "oryzone/oauth-user-data/request-fields-from-facebook.patch"
+            },
+            "tedivm/stash:v0.12.1": {
+                "Fail silently when including malformed cache file": "tedivm/stash/fail-silently-for-malformed-cache-files.patch"
             }
         }
     }

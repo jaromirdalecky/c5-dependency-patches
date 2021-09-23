@@ -1,0 +1,19 @@
+From: Jaromir Dalecky <jaromir@harvestdp.com>
+Date: Thu, 23 Sep 2021 15:20:00 +1000
+Subject: [PATCH] Fail silently for malformed cache files
+
+--- a/src/Stash/Driver/FileSystem.php
++++ b/src/Stash/Driver/FileSystem.php
+@@ -200,7 +200,11 @@ protected static function getDataFromFile($path)
+             return false;
+         }
+
+-        include($path);
++        try {
++            include($path);
++        } catch (\Error $e) {
++            return false;
++        }
+
+         if (!isset($loaded)) {
+             return false;
