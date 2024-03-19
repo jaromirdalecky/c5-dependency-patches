@@ -1,0 +1,25 @@
+From: Jaromir Dalecky <jaromir@harvestdp.com>
+Date: Tue, 19 Mar 2024 16:32:15 +1100
+Subject: [PATCH] Fix token expiry
+
+--- a/src/OAuth/OAuth2/Service/Facebook.php
++++ b/src/OAuth/OAuth2/Service/Facebook.php
+@@ -174,8 +174,8 @@ protected function parseAccessTokenResponse($responseBody)
+         $token = new StdOAuth2Token();
+         $token->setAccessToken($data['access_token']);
+
+-        if (isset($data['expires'])) {
+-            $token->setLifeTime($data['expires']);
++        if (isset($data['expires_in'])) {
++            $token->setLifeTime($data['expires_in']);
+         }
+
+         if (isset($data['refresh_token'])) {
+@@ -184,7 +184,7 @@ protected function parseAccessTokenResponse($responseBody)
+         }
+
+         unset($data['access_token']);
+-        unset($data['expires']);
++        unset($data['expires_in']);
+
+         $token->setExtraParams($data);

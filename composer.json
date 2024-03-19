@@ -11,6 +11,9 @@
             "lusitanian/oauth:v0.8.9": {
                 "Fix Facebook API response decoding in JSON": "lusitanian/oauth/decode-json-response-from-facebook.patch"
             },
+            "lusitanian/oauth:v0.8.11": {
+                "Fix retrieval of access token expiry": "lusitanian/oauth/fix-token-expiry.patch"
+            },
             "oryzone/oauth-user-data:v1.0.0-alpha": {
                 "Pass request fields to Facebook Graph API": "oryzone/oauth-user-data/request-fields-from-facebook.patch"
             },
